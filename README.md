@@ -1,12 +1,24 @@
 # Job Queue System (JQS)
 
-A high-performance, asynchronous job queue system built in Go using Gin, PostgreSQL, and a goroutine-based worker pool. Designed for cloud-native deployment (Docker, Render.com, etc).
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-jqs.onrender.com-blue)](https://jqs.onrender.com/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-NikhilCyberk%2Fjqs-blue?logo=github)](https://github.com/NikhilCyberk/jqs.git)
+
+A high-performance, asynchronous job queue system built in Go using Gin, PostgreSQL, a goroutine-based worker pool, and a repository pattern for clean architecture. Designed for cloud-native deployment (Docker, Render.com, etc).
+
+---
+
+## Live Demo
+- 🌐 **Production:** [https://jqs.onrender.com/](https://jqs.onrender.com/)
+
+## Repository
+- 📦 **GitHub:** [https://github.com/NikhilCyberk/jqs.git](https://github.com/NikhilCyberk/jqs.git)
 
 ---
 
 ## Features
 - **REST API** for job submission, status, and listing
 - **Asynchronous processing** with a configurable worker pool (default: 5 workers)
+- **Repository pattern** for decoupled, testable data access
 - **Structured logging** with logrus
 - **PostgreSQL** for job persistence
 - **Environment variable** and `.env` file support
@@ -20,6 +32,7 @@ A high-performance, asynchronous job queue system built in Go using Gin, Postgre
 JQS/
 ├── cmd/                # Main application entrypoint
 ├── handlers/           # HTTP handlers (Gin)
+├── repositories/       # Repository interfaces and implementations
 ├── services/           # Worker pool and business logic
 ├── models/             # Database models and migrations
 ├── utils/              # Logging, config, and helpers
@@ -55,7 +68,7 @@ PORT=8080
 ## Setup & Run
 1. **Clone and build**
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/NikhilCyberk/jqs.git
    cd JQS
    go mod tidy
    go build -o jqs ./cmd/main.go
@@ -157,9 +170,9 @@ Render makes it easy to deploy Dockerized web services and managed PostgreSQL da
 - **Concurrency:** Default 5 workers (configurable in code)
 - **Behavior:**
   - Picks up jobs from the queue
-  - Updates status to `processing`
+  - Updates status to `processing` (via repository)
   - Simulates work (replace with your logic)
-  - Updates status to `completed` and sets result
+  - Updates status to `completed` and sets result (via repository)
 - **Logging:** All steps are logged with job ID and status
 
 ---
@@ -187,6 +200,7 @@ Here are some example JSON payloads you can POST to `/jobs`:
   ```sh
   go test ./...
   ```
+- **Mocking:** You can mock the repository interface for isolated handler tests
 - **Logging:** Structured logs (JSON) for all job events
 
 ---
