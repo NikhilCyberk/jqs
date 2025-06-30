@@ -24,6 +24,7 @@ A high-performance, asynchronous job queue system built in Go using Gin, Postgre
 - **Environment variable** and `.env` file support
 - **Containerized** with Docker (non-root user)
 - **Graceful shutdown** and robust error handling
+- **Internal directory** for encapsulation and Go best practices
 
 ---
 
@@ -31,17 +32,28 @@ A high-performance, asynchronous job queue system built in Go using Gin, Postgre
 ```
 JQS/
 ├── cmd/                # Main application entrypoint
-├── handlers/           # HTTP handlers (Gin)
-├── repositories/       # Repository interfaces and implementations
-├── services/           # Worker pool and business logic
-├── models/             # Database models and migrations
-├── utils/              # Logging, config, and helpers
+├── internal/
+│   ├── handlers/       # HTTP handlers (Gin)
+│   ├── repositories/   # Repository interfaces and implementations
+│   ├── services/       # Worker pool and business logic
+│   ├── models/         # Database models and migrations
+│   └── utils/          # Logging, config, constants, and helpers
 ├── Dockerfile
 ├── go.mod
 ├── go.sum
 ├── .env.example
+├── .gitignore
 └── README.md
 ```
+
+---
+
+## .gitignore
+A `.gitignore` file is included to keep your repository clean. It ignores:
+- Binaries and build artifacts (`*.exe`, `app`, etc.)
+- Environment files (`.env`, `.env.*`)
+- Editor/OS files (`.vscode/`, `.idea/`, `.DS_Store`, etc.)
+- Logs and Docker artifacts
 
 ---
 
@@ -195,7 +207,7 @@ Here are some example JSON payloads you can POST to `/jobs`:
 ---
 
 ## Development & Testing
-- **Unit tests:** See `handlers/job_handlers_test.go`
+- **Unit tests:** See `internal/handlers/job_handlers_test.go`
 - **Run tests:**
   ```sh
   go test ./...
