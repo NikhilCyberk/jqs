@@ -38,7 +38,7 @@ func main() {
 
 	workerPool := services.NewWorkerPool(5, func(job models.Job) {
 		// Update job status to 'processing'
-		err := repo.UpdateJobStatusAndResult(context.Background(), job.ID, "processing", nil)
+		err := repo.UpdateJobStatusAndResult(context.Background(), job.ID, utils.JobStatusProcessing, nil)
 		if err != nil {
 			utils.Logger.WithError(err).Errorf("Failed to update job %d to processing", job.ID)
 			return
@@ -49,8 +49,8 @@ func main() {
 		time.Sleep(2 * time.Second)
 
 		// Set a dummy result (could be any JSON)
-		result := []byte(`{"message": "Job completed successfully"}`)
-		err = repo.UpdateJobStatusAndResult(context.Background(), job.ID, "completed", result)
+		result := []byte(`{"message": "` + utils.MsgJobCompleted + `"}`)
+		err = repo.UpdateJobStatusAndResult(context.Background(), job.ID, utils.JobStatusCompleted, result)
 		if err != nil {
 			utils.Logger.WithError(err).Errorf("Failed to update job %d to completed", job.ID)
 			return
