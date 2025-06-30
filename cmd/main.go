@@ -13,11 +13,11 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 
-	"github.com/yourusername/jqs/handlers"
-	"github.com/yourusername/jqs/models"
-	"github.com/yourusername/jqs/repositories"
-	"github.com/yourusername/jqs/services"
-	"github.com/yourusername/jqs/utils"
+	"github.com/NikhilCyberk/jqs/internal/handlers"
+	"github.com/NikhilCyberk/jqs/internal/models"
+	"github.com/NikhilCyberk/jqs/internal/repositories"
+	"github.com/NikhilCyberk/jqs/internal/services"
+	"github.com/NikhilCyberk/jqs/internal/utils"
 )
 
 func main() {
@@ -36,7 +36,7 @@ func main() {
 
 	repo := repositories.NewPostgresJobRepository(db)
 
-	workerPool := services.NewWorkerPool(5, func(job models.Job) {
+	workerPool := services.NewWorkerPool(5, services.JobHandler(func(job models.Job) {
 		// Update job status to 'processing'
 		err := repo.UpdateJobStatusAndResult(context.Background(), job.ID, utils.JobStatusProcessing, nil)
 		if err != nil {
@@ -56,7 +56,7 @@ func main() {
 			return
 		}
 		utils.Logger.WithField("job_id", job.ID).Info("Job completed")
-	})
+	}))
 	workerPool.Start()
 
 	handlers.Init(repo, workerPool)

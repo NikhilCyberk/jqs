@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/NikhilCyberk/jqs/internal/models"
+	"github.com/NikhilCyberk/jqs/internal/services"
 	"github.com/gin-gonic/gin"
-	"github.com/yourusername/jqs/models"
-	"github.com/yourusername/jqs/services"
 )
 
 type mockDB struct{}

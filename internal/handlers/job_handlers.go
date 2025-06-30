@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/NikhilCyberk/jqs/internal/models"
+	"github.com/NikhilCyberk/jqs/internal/repositories"
+	"github.com/NikhilCyberk/jqs/internal/services"
+	"github.com/NikhilCyberk/jqs/internal/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/yourusername/jqs/models"
-	"github.com/yourusername/jqs/repositories"
-	"github.com/yourusername/jqs/services"
-	"github.com/yourusername/jqs/utils"
 )
 
 var Repo repositories.JobRepository

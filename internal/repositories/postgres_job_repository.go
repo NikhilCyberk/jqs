@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/yourusername/jqs/models"
+	"github.com/NikhilCyberk/jqs/internal/models"
 )
 
 type PostgresJobRepository struct {

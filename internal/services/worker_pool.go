@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/yourusername/jqs/models"
-	"github.com/yourusername/jqs/utils"
+	"github.com/NikhilCyberk/jqs/internal/models"
+	"github.com/NikhilCyberk/jqs/internal/utils"
 )
 
 // The JobHandler should update job status and result in the database.

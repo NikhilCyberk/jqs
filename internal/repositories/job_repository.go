@@ -3,7 +3,7 @@ package repositories
 import (
 	"context"
 
-	"github.com/yourusername/jqs/models"
+	"github.com/NikhilCyberk/jqs/internal/models"
 )
 
 type JobRepository interface {
